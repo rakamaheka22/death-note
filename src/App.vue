@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <Note @onAddNote="onAddNote($event)" />
+    <List :list-of-target="list" @targetlist="list = $event" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue';
+import List from './components/List.vue';
+import Note from './components/Note.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    List,
+    Note
+  },
+  data() {
+    return {
+      list: []
+    }
+  },
+  methods: {
+    onAddNote($event) {
+      this.list = [...this.list, $event]
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+  background-color: #010101;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
+
